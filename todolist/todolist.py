@@ -8,13 +8,7 @@ from . import db   ###for database
 
 bp = Blueprint("pets", "pets", url_prefix="")
 
-def format_date(d):
-    if d:
-        d = datetime.datetime.strptime(d, '%Y-%m-%d')
-        v = d.strftime("%a - %b %d, %Y")
-        return v
-    else:
-        return None
+
 
 
 
@@ -28,9 +22,7 @@ def dashboard():
 
     if request.method == 'POST':
         task_content=request.form.get('content')
-        date_created=datetime.date.today()
-        date_created=format_date(str(date_created))
-        
+        date_created=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         cursor.execute("INSERT INTO todo (content,date_created) VALUES (?,?)", [task_content,date_created])
         conn.commit()
         return redirect('/')
