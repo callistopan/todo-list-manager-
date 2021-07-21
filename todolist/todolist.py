@@ -28,22 +28,15 @@ def dashboard():
 
     if request.method == 'POST':
         task_content=request.form.get('content')
-        print(task_content)
-        cursor.execute("INSERT INTO todo (content) VALUES (?)", [task_content])
+        date_created=datetime.date.today()
+        date_created=format_date(str(date_created))
+        
+        cursor.execute("INSERT INTO todo (content,date_created) VALUES (?,?)", [task_content,date_created])
         conn.commit()
         return redirect('/')
         
 
     else:
-        cursor.execute("select content,date_created from todo order by date_created")
-
-        tasks = (x[0] for x in cursor.fetchall())
-        date_created=datetime.date.today()
-        print(tasks)
-        print(tasks)
-        data = dict(
-            
-                    tasks = tasks,
-                    date_created=date_created)
-
-    return render_template('index.html', **data)
+        cursor.execute("select * from todo order by date_created")
+        data=cursor.fetchall()
+    return render_template('index.html', data=data)

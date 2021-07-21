@@ -13,19 +13,19 @@
     <table>
         <tr>
             <th>Task</th>
-            <th>Added</th>
+            <th>Added on</th>
             <th>Actions</th>
         </tr>
-        {% for task in tasks %}
+        {% for d in data %}
             <tr>
-                <td>{{task}}</td>
-                <td>{{ date_created }}</td>
+                <td>{{d[1]}}</td>
+                <td>{{ d[2] }}</td>
                 
                 
                 <td>
-                    <a href="/delete/{{task.id}}">Delete</a>
+                    <a href="/delete/{{d[0]}}">Delete</a>
                     <br>
-                    <a href="/update/{{task.id}}">Update</a>
+                    <a href="/update/{{d[0]}}">Update</a>
                 </td>
             </tr>
         {% endfor %}
