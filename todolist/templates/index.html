@@ -15,16 +15,19 @@
         <tr>
             <th>Task</th>
             <th>Added on</th>
+            <th>Removed on</th>
             <th>Actions</th>
         </tr>
         {% for d in data %}
             <tr>
                 <td>{{d[1]}}</td>   
                 <td>{{ d[2] }}</td>
+                <td>{{ d[3] }}</td>
+
                 
                 
                 <td>
-                    <a href="/delete/{{d[0]}}">Delete</a>
+                    <a href="/done/{{d[0]}}">Done</a>
                     <br>
                     <a href="/update/{{d[0]}}">Update</a>
                 </td>

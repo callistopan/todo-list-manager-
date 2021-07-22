@@ -10,7 +10,8 @@ DROP TABLE IF EXISTS todo;
 CREATE TABLE todo(
        id INTEGER PRIMARY KEY AUTOINCREMENT,
        content TEXT NOT NULL,
-       date_created DATE DEFAULT (datetime('now','localtime'))
+       date_created DATE DEFAULT (datetime('now','localtime')),
+       date_ended DATE 
 
 );
 
