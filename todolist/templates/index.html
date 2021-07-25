@@ -17,20 +17,23 @@
             <th>Added on</th>
             <th>Removed on</th>
             <th>Actions</th>
+            <th>overdue status</th>
         </tr>
         {% for d in data %}
             <tr>
                 <td>{{d[1]}}</td>   
                 <td>{{ d[2] }}</td>
                 <td>{{ d[3] }}</td>
+                
 
                 
                 
                 <td>
-                    <a href="/done/{{d[0]}}">Done</a>
+                    <a href="/done/{{d[0]}}">Mark as Done</a>
                     <br>
-                    <a href="/update/{{d[0]}}">Update</a>
+                    
                 </td>
+                <td>{{d[4]}}</td>
             </tr>
         {% endfor %}
     </table>
@@ -45,4 +48,9 @@
         </form>
     </div>
 </div>
+
+<div class="weekly_schedule">
+    <h2><a href="/weekly_schedule">View Weekly Schedule</a></h2>
+</div>
+
 {% endblock %}
