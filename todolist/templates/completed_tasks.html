@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>WEEKLY SCHEDULE</title>
+<title>COMPLETED TASKS</title>
 {% endblock %}
 
 {% block body %}
 <div class="content">
-    <h1 style="text-align: center">WEEKLY SCHEDULE</h1>
+    <h1 style="text-align: center">COMPLETED TASKS</h1>
     {% if data|length<1 %}
-    <h4 style="text-align: center">There are no tasks for this week</h4>
+    <h4 style="text-align: center">There are no tasks done!!!please do it fast!!!</h4>
     
     {% else %}
     
@@ -16,11 +16,13 @@
     <table>
         <tr>
             <th>Task</th>
+            <th>task completed on</th>
 
         </tr>
         {% for d in data %}
             <tr>
-                <td>{{d[1]}}</td>   
+                <td>{{d[1]}}</td>
+                <td>{{d[3]}}</td>   
                
 
                 

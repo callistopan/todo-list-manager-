@@ -26,8 +26,9 @@ def dashboard():
         date_created=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         date_end=""
         overdue="No"
+        completed=0
 
-        cursor.execute("INSERT INTO todo (content,date_created,date_ended,over_due) VALUES (?,?,?,?)", [task_content,date_created,date_end,overdue])
+        cursor.execute("INSERT INTO todo (content,date_created,date_ended,over_due,completed) VALUES (?,?,?,?,?)", [task_content,date_created,date_end,overdue,completed])
         conn.commit()
         return redirect('/')
         
@@ -49,7 +50,7 @@ def dashboard():
             else:
                 cursor.execute("update todo set over_due=? where id=?;",(overdue_stat2,d[0]))
 
-        cursor.execute("select * from todo order by date_created")
+        cursor.execute("select * from todo where completed=0 order by date_created ")
         data=cursor.fetchall()
         
 
@@ -62,11 +63,13 @@ def done(id):
     print(id)
     conn=db.get_db()
     cursor=conn.cursor()
-    done_message="done"
+    
+    completed=1
     date_end=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    cursor.execute("update todo set content=? where id=?;",(done_message,id))
+    
     cursor.execute("update todo set date_ended=? where id=?;",(date_end,id))
+    cursor.execute("update todo set completed=? where id=?;",(completed,id))
     conn.commit()
     return redirect('/')
 
@@ -75,9 +78,18 @@ def weekly_schedule():
     conn =db.get_db()
     cursor = conn.cursor()
     
-    cursor.execute("select * from todo order by date_created")
+    cursor.execute("select * from todo where completed=0 order by date_created")
     data=cursor.fetchall()
-    print(type(data))
-    print(type(data[0]))
+    
     
     return render_template('weekly_schedule.html',data=data)
+@bp.route('/completed_tasks')
+def completed_tasks():
+    conn =db.get_db()
+    cursor = conn.cursor()
+    
+    cursor.execute("select * from todo where completed=1 order by date_created")
+    data=cursor.fetchall()
+    
+    
+    return render_template('completed_tasks.html',data=data)
