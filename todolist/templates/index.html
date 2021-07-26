@@ -11,6 +11,7 @@
     <h4 style="text-align: center">There are no tasks. Create one below!</h4>
     
     {% else %}
+    <a href="/clear_all">Clear all</a>
     <table>
         <tr>
             <th>Task</th>
@@ -21,7 +22,12 @@
         </tr>
         {% for d in data %}
             <tr>
-                <td>{{d[1]}}</td>   
+                {% if d[5] %}
+
+                <td><span style="text-decoration:line-through;">{{d[1]}}</span></td>
+                {% else %}
+                <td>{{d[1]}}</td>
+                {% endif %}   
                 <td>{{ d[2] }}</td>
                
                 

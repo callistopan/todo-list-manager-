@@ -39,9 +39,8 @@ def dashboard():
         today_date=datetime.datetime.now()
         for d in data:
             created_date=datetime.datetime.strptime(d[2],"%Y-%m-%d %H:%M:%S")
-            overdue=created_date+datetime.timedelta(minutes=1)
-            print(type(overdue))
-            print(type(created_date))
+            overdue=created_date+datetime.timedelta(days=7)
+           
             overdue_stat1="yes"
             overdue_stat2="No"
 
@@ -50,7 +49,7 @@ def dashboard():
             else:
                 cursor.execute("update todo set over_due=? where id=?;",(overdue_stat2,d[0]))
 
-        cursor.execute("select * from todo where completed=0 order by date_created ")
+        cursor.execute("select * from todo order by date_created ")
         data=cursor.fetchall()
         
 
@@ -60,7 +59,7 @@ def dashboard():
 @bp.route('/done/<int:id>')
 def done(id):
 
-    print(id)
+    
     conn=db.get_db()
     cursor=conn.cursor()
     
@@ -93,3 +92,10 @@ def completed_tasks():
     
     
     return render_template('completed_tasks.html',data=data)
+@bp.route('/clear_all')
+def clear_all():
+    conn =db.get_db()
+    cursor = conn.cursor()
+    cursor.execute("delete from todo")
+    conn.commit()
+    return redirect('/')
