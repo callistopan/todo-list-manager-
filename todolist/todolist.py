@@ -7,7 +7,7 @@ from flask import g
 
 from . import db   ###for database
 
-bp = Blueprint("pets", "pets", url_prefix="")
+bp = Blueprint("todolist", "todolist", url_prefix="")
 
 
 

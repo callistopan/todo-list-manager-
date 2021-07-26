@@ -9,7 +9,7 @@ def create_app(test_config=None):
     app = Flask("todolist")
     app.debug =True
     app.config.from_mapping(
-        DATABASE=os.path.join(app.instance_path, 'petshop.sqlite')
+        DATABASE=os.path.join(app.instance_path, 'todolist.sqlite')
     )
 
     if test_config is not None:
